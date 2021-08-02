@@ -1,1 +1,58 @@
-Hello this is the main page
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		IIT Ropar Coding Club
+	</title>
+	
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'assets/css/index.css '%}">
+</head>
+
+<body>
+	
+	<!-- Navbar items -->
+	<div id="navlist">
+		<a href="/">IIT ROPAR CODING COMMUNITY</a>
+    {% for navbar in navbars%}
+		<a href="{{navbar.link}}">{{navbar.name}}</a>
+		{% endfor %}
+		<div class="navlist-right">
+      <a href="login">Login/Register</a>         
+		</div>
+	</div>
+    <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>
+    <div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card card-1">
+        <h3>Announcements</h3>
+        <p>Announcements goes here</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-2">
+        <h3>Top coders</h3>
+        <p>Name                                                                             CF RATING</p>
+        <br>
+        <p>1.Ojas                                                                            6969</p>
+        <p>2.Harpreet                                                                        6969</p>
+        <p>3.Shahnawaz                                                                       6969</p>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+	<!-- logo with tag -->
+	
+</body>
+
+</html>
