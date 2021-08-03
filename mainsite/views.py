@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Navbar
+from .models import *
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
 # Create your views here.
@@ -28,4 +28,42 @@ def login(request):
         return render(request,'login.html')
 def logout(request):
     auth.logout(request)
+    messages.info(request,'Logged out successfully')
     return redirect('/')
+def register(request):
+    if request.method=='POST':
+        email=request.POST['email']
+        password=request.POST['password']
+        firstname=request.POST['firstname']
+        lastname=request.POST['lastname']
+        cfid=request.POST['cfid']
+        password2=request.POST['password2']
+        if password!=password2:
+            messages.info(request,'Both passwords should be same')
+            return redirect('register')
+        else:
+            if User.objects.filter(email=email).exists():
+                user = User.objects.get(email=email)
+                messages.info(request,'Email already registered!')
+                return redirect('register')
+            else:
+                if profile.objects.filter(cfid=cfid).exists():
+                    messages.info(request,'Codeforces Id already registered! If its your id, please contact Admin')
+                    return redirect('register')
+                else:
+                    user=User.objects.create_user(username=email,email=email,first_name=firstname,last_name=lastname,password=password)
+                    User.save(user)
+                    user_profile=profile()
+                    user_profile.user=user
+                    user_profile.cfid=cfid
+                    user_profile.save()
+                    messages.info(request,"Success")
+                    return redirect ('login')
+    else:
+        return render (request,'register.html')
+def leaderboard(request):
+    return(render(request,'leaderboard.html'))
+def contact(request):
+    return(render(request,'contact.html'))
+def resources(request):
+    return(render(request,'resources.html'))

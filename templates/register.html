@@ -1,0 +1,19 @@
+{% for message in messages %}
+<p> {{message}} </p>
+{% endfor %}
+<form action="/register/" method="POST">
+    {% csrf_token %}
+    <p>First name:</p>
+    <input type="text" name="firstname">
+    <p>Last name:</p>
+    <input type="text" name="lastname">
+    <p>Email:</p>
+    <input type="email" name="email">
+    <p>Password:</p>
+    <input type="password" name="password">
+    <p>Confirm Password:</p>
+    <input type="password" name="password2">
+    <p>Codeforces Id:</p>
+    <input type="text" name="cfid">
+    <input type="submit" >
+</form>

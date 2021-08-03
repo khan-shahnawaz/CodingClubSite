@@ -13,8 +13,25 @@
     <link rel="stylesheet" href="{% static 'assets/css/index.css '%}">
 </head>
 
+{% for message in messages %}
+<div class="alert" style="padding: 15px;
+background-color: #478aff
+;
+color: white;
+margin-bottom: 15px;">
+  <span class="closebtn" style="margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>{{ message }}</strong> 
+</div>
+{% endfor %}
 <body>
-	
+
 	<!-- Navbar items -->
 	<div id="navlist">
 		<a href="/">IIT ROPAR CODING COMMUNITY</a>
@@ -25,10 +42,11 @@
       {% if not user.is_authenticated %}
       <a href="login">Login/Register</a>
       {% else %}
-      <a href="logout">Logout</a>
+      <a href="logout"> Logout </a>
       {% endif %}
 		</div>
 	</div>
+  
     <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>
     <div class="container">
   <div class="row">
