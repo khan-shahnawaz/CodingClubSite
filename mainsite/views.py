@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
+from .codeforces import authenticate,get_rating
 # Create your views here.
 def index(request):
     navbar=Navbar.objects.all()
@@ -38,6 +39,7 @@ def register(request):
         lastname=request.POST['lastname']
         cfid=request.POST['cfid']
         password2=request.POST['password2']
+        batch=request.POST['batch']
         if password!=password2:
             messages.info(request,'Both passwords should be same')
             return redirect('register')
@@ -51,14 +53,21 @@ def register(request):
                     messages.info(request,'Codeforces Id already registered! If its your id, please contact Admin')
                     return redirect('register')
                 else:
-                    user=User.objects.create_user(username=email,email=email,first_name=firstname,last_name=lastname,password=password)
-                    User.save(user)
-                    user_profile=profile()
-                    user_profile.user=user
-                    user_profile.cfid=cfid
-                    user_profile.save()
-                    messages.info(request,"Success")
-                    return redirect ('login')
+                    if authenticate(cfid)==False:
+                        messages.info(request,"Invalid Codeforces Id")
+                        return redirect('register')
+                    else:
+                        user=User.objects.create_user(username=email,email=email,first_name=firstname,last_name=lastname,password=password)
+                        User.save(user)
+                        user_profile=profile()
+                        user_profile.user=user
+                        user_profile.cfid=cfid
+                        user_profile.batch=batch
+                        user_profile.cf_rating=get_rating(cfid)
+                        user_profile.save()
+                        messages.info(request,"Success")
+                        messages.info(request,"Your Current Rating: "+str(user_profile.cf_rating))
+                        return redirect ('login')
     else:
         return render (request,'register.html')
 def leaderboard(request):
