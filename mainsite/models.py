@@ -7,3 +7,5 @@ class Navbar(models.Model):
 class profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
     cfid=models.CharField(max_length=100)
+    cf_rating = models.IntegerField(default=0)
+    batch=models.IntegerField(default=2020)
