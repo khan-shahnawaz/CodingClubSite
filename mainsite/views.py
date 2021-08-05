@@ -3,11 +3,13 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
-from .codeforces import authenticate,get_rating
+from .codeforces import *
 # Create your views here.
 def index(request):
     navbar=Navbar.objects.all()
-    return render(request,'index.html',{'navbars':navbar})
+    profiles= profile.objects.all()
+    rating= get_best(profiles)
+    return render(request,'index.html',{'navbars':navbar,'best_rating':rating})
 def login(request):
     if request.method=='POST':
         email=request.POST['email']
