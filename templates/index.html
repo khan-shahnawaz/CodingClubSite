@@ -77,11 +77,11 @@ margin-bottom: 15px;">
   <!-- Full images with numbers and message Info -->
   <div class="Containers">
     <div class="MessageInfo">1 / 3</div>
-    <img src="bg.webp"width:100%">
+    <img src="{% static 'assets/img/bg.webp'%}" width:100%">
     <div class="Info">First caption</div>
   </div>
 
-  <div class="Containers">
+  <!--div class="Containers">
     <div class="MessageInfo">2 / 3</div>
     <img src="image2.jpg" style="width:100%">
     <div class="Info">Second Caption</div>
@@ -91,7 +91,7 @@ margin-bottom: 15px;">
     <div class="MessageInfo">3 / 3</div>
     <img src="image3.jpg" style="width:100%">
     <div class="Info">Third Caption</div>
-  </div>
+  </div-->
 
   <!-- Back and forward buttons -->
   <a class="Back" onclick="plusSlides(-1)">&#10094;</a>
@@ -127,19 +127,14 @@ margin-bottom: 15px;">
               
             </tr>
           </thead>
+          {% for best in best_rating %}
           <tr>
-            <td>Harpreet</td>
-            <td>6969</td>
+            <td>{{best.id}}</td>
+            <td>{{best.rating}}</td>
             
           </tr>
-          <tr>
-            <td>Ojas</td>
-            <td>6969</td>
-          </tr>
-          <tr>
-            <td>Shahnawaz</td>
-            <td>6969</td>
-          </tr>
+          {% endfor %}
+          
         </table>
       </div>
     </div>
