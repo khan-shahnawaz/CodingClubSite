@@ -8,9 +8,11 @@ from .codeforces import *
 def index(request):
     navbar=Navbar.objects.all()
     profiles= profile.objects.all()
+    slideshows= slideshow.objects.all()
     rating= get_best(profiles)
-    return render(request,'index.html',{'navbars':navbar,'best_rating':rating})
+    return render(request,'index.html',{'navbars':navbar,'best_rating':rating,'slideshow':slideshows,'slide_max':len(slideshows)})
 def login(request):
+    navbar=Navbar.objects.all()
     if request.method=='POST':
         email=request.POST['email']
         password=request.POST['password']
@@ -28,12 +30,13 @@ def login(request):
                 messages.info(request,'Invalid Login')
                 return redirect('login')
     else:        
-        return render(request,'login.html')
+        return render(request,'login.html',{'navbars':navbar})
 def logout(request):
     auth.logout(request)
     messages.info(request,'Logged out successfully')
     return redirect('/')
 def register(request):
+    navbar=Navbar.objects.all()
     if request.method=='POST':
         email=request.POST['email']
         password=request.POST['password']
@@ -71,7 +74,7 @@ def register(request):
                         messages.info(request,"Your Current Rating: "+str(user_profile.cf_rating))
                         return redirect ('login')
     else:
-        return render (request,'register.html')
+        return render (request,'register.html',{'navbars':navbar})
 def leaderboard(request):
     return(render(request,'leaderboard.html'))
 def contact(request):

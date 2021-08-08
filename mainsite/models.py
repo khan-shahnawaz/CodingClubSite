@@ -9,3 +9,7 @@ class profile(models.Model):
     cfid=models.CharField(max_length=100)
     cf_rating = models.IntegerField(default=0)
     batch=models.IntegerField(default=2020)
+class slideshow(models.Model):
+    caption = models.CharField(max_length=100)
+    img=models.ImageField(upload_to='static/img')
+    rank=models.IntegerField()
